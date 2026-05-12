@@ -893,6 +893,88 @@
     .btn { justify-content: center; }
   }
 
+  /* ============ GALLERY STATES ============ */
+  .gallery-state {
+    grid-column: 1 / -1;
+    padding: 5rem 2rem;
+    text-align: center;
+    font-family: var(--serif);
+    color: var(--ink-soft);
+  }
+
+  .gallery-state .icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1.5rem;
+    color: var(--moss);
+    opacity: 0.7;
+  }
+
+  .gallery-state h3 {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+    font-style: italic;
+  }
+
+  .gallery-state p {
+    font-size: 1.05rem;
+    max-width: 420px;
+    margin: 0 auto;
+    line-height: 1.55;
+  }
+
+  /* Loading skeleton cards */
+  .skeleton {
+    background: var(--paper);
+    box-shadow: 0 8px 20px -10px rgba(54, 66, 38, 0.15);
+  }
+
+  .skeleton-img {
+    aspect-ratio: 4/5;
+    background: linear-gradient(90deg, var(--bg-warm) 0%, #e0d4ba 50%, var(--bg-warm) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+
+  .skeleton-info {
+    padding: 1.4rem 1.5rem 1.6rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .skeleton-line {
+    height: 14px;
+    background: linear-gradient(90deg, var(--bg-warm) 0%, #e0d4ba 50%, var(--bg-warm) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+    border-radius: 2px;
+    margin-bottom: 0.6rem;
+  }
+
+  .skeleton-line.short { width: 50%; height: 10px; }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Artwork description (new field from sheet) */
+  .artwork-desc {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-top: 0.5rem;
+    line-height: 1.45;
+  }
+
+  /* Fade-in for dynamically inserted artworks */
+  .artwork.fade-in {
+    animation: fadeUp 0.6s ease backwards;
+  }
+
   /* ============ ANIMATIONS ============ */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(30px); }
@@ -1030,149 +1112,30 @@
     </div>
 
     <div class="gallery" id="gallery">
-      <!-- LANDSCAPES -->
-      <div class="artwork" data-cat="landscapes">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/land1/600/750" alt="Shawangunk Ridge at Dusk"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Shawangunk Ridge <span class="it">at Dusk</span></div>
-          <div class="artwork-meta">Landscape · Oil on canvas</div>
-        </div>
+      <!-- Loading skeleton shown initially; replaced by JS once data arrives -->
+      <div class="artwork skeleton" aria-hidden="true">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
       </div>
-      <div class="artwork" data-cat="landscapes">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/land2/600/750" alt="Wallkill River in October"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Wallkill River, <span class="it">October</span></div>
-          <div class="artwork-meta">Landscape · Oil on canvas</div>
-        </div>
+      <div class="artwork skeleton" aria-hidden="true">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
       </div>
-      <div class="artwork" data-cat="landscapes">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/land3/600/750" alt="Minnewaska Morning"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Minnewaska <span class="it">Morning</span></div>
-          <div class="artwork-meta">Landscape · Acrylic</div>
-        </div>
+      <div class="artwork skeleton" aria-hidden="true">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
       </div>
-      <div class="artwork" data-cat="landscapes">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/land4/600/750" alt="Field in High Summer"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Field in <span class="it">High Summer</span></div>
-          <div class="artwork-meta">Landscape · Oil on linen</div>
-        </div>
+      <div class="artwork skeleton" aria-hidden="true">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
       </div>
-
-      <!-- PORTRAITS -->
-      <div class="artwork" data-cat="portraits">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/port1/600/750" alt="Margaret, in Profile"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Margaret, <span class="it">in Profile</span></div>
-          <div class="artwork-meta">Portrait · Oil on panel</div>
-        </div>
+      <div class="artwork skeleton" aria-hidden="true">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
       </div>
-      <div class="artwork" data-cat="portraits">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/port2/600/750" alt="The Reader"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">The <span class="it">Reader</span></div>
-          <div class="artwork-meta">Portrait · Oil on canvas</div>
-        </div>
-      </div>
-      <div class="artwork" data-cat="portraits">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/port3/600/750" alt="Self, with Studio Window"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Self, with <span class="it">Studio Window</span></div>
-          <div class="artwork-meta">Portrait · Oil on linen</div>
-        </div>
-      </div>
-
-      <!-- MIXED MEDIA -->
-      <div class="artwork" data-cat="mixed">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/mix1/600/750" alt="Layered Garden"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Layered <span class="it">Garden</span></div>
-          <div class="artwork-meta">Mixed Media · Collage &amp; acrylic</div>
-        </div>
-      </div>
-      <div class="artwork" data-cat="mixed">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/mix2/600/750" alt="Found Hymn"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Found <span class="it">Hymn</span></div>
-          <div class="artwork-meta">Mixed Media · Paper, ink, wax</div>
-        </div>
-      </div>
-      <div class="artwork" data-cat="mixed">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/mix3/600/750" alt="Pressed and Painted"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Pressed and <span class="it">Painted</span></div>
-          <div class="artwork-meta">Mixed Media · Botanical &amp; oil</div>
-        </div>
-      </div>
-
-      <!-- DOOR OF ISRAEL -->
-      <div class="artwork" data-cat="israel">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/door1/600/750" alt="Door of Israel I"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Door of Israel <span class="it">I</span></div>
-          <div class="artwork-meta">Series · Oil on panel</div>
-        </div>
-      </div>
-      <div class="artwork" data-cat="israel">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/door2/600/750" alt="Door of Israel II"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Door of Israel <span class="it">II</span></div>
-          <div class="artwork-meta">Series · Oil on panel</div>
-        </div>
-      </div>
-      <div class="artwork" data-cat="israel">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/door3/600/750" alt="Door of Israel III"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Door of Israel <span class="it">III</span></div>
-          <div class="artwork-meta">Series · Oil on panel</div>
-        </div>
-      </div>
-
-      <!-- MURALS -->
-      <div class="artwork" data-cat="murals">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/mur1/600/750" alt="Main Street Mural"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Main Street <span class="it">Mural</span></div>
-          <div class="artwork-meta">Mural · Exterior, New Paltz</div>
-        </div>
-      </div>
-      <div class="artwork" data-cat="murals">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/mur2/600/750" alt="Schoolhouse Wall"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Schoolhouse <span class="it">Wall</span></div>
-          <div class="artwork-meta">Mural · Interior commission</div>
-        </div>
-      </div>
-      <div class="artwork" data-cat="murals">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/mur3/600/750" alt="Community Garden Mural"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Community <span class="it">Garden</span></div>
-          <div class="artwork-meta">Mural · Public artwork</div>
-        </div>
-      </div>
-
-      <!-- COMMISSIONS -->
-      <div class="artwork" data-cat="commissions">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/com1/600/750" alt="The Family Home"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">The Family <span class="it">Home</span></div>
-          <div class="artwork-meta">Commission · Oil on canvas</div>
-        </div>
-      </div>
-      <div class="artwork" data-cat="commissions">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/com2/600/750" alt="SOS Triathlon Commemorative"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">SOS Triathlon, <span class="it">Commemorative</span></div>
-          <div class="artwork-meta">Commission · Acrylic</div>
-        </div>
-      </div>
-      <div class="artwork" data-cat="commissions">
-        <div class="artwork-img"><img src="https://picsum.photos/seed/com3/600/750" alt="Wedding Portrait"></div>
-        <div class="artwork-info">
-          <div class="artwork-title">Wedding <span class="it">Portrait</span></div>
-          <div class="artwork-meta">Commission · Oil on linen</div>
-        </div>
+      <div class="artwork skeleton" aria-hidden="true">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
       </div>
     </div>
   </div>
@@ -1276,20 +1239,183 @@
     a.addEventListener('click', () => navList.classList.remove('open'));
   });
 
-  // Portfolio filter
+  // ============ PORTFOLIO: fetch from Google Sheets + filter ============
+  const SHEET_ID = '1QEytyPdQ_8SHmd-iESva04g-Df-JKYcy6p-dEFSLFpk';
+  const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+
+  // Map sheet category labels -> filter keys used by the filter buttons
+  const CATEGORY_MAP = {
+    'landscapes': 'landscapes',
+    'portraits': 'portraits',
+    'mixed media': 'mixed',
+    'door of israel': 'israel',
+    'murals': 'murals',
+    'commissions': 'commissions'
+  };
+
+  const CATEGORY_LABELS = {
+    'landscapes': 'Landscape',
+    'portraits': 'Portrait',
+    'mixed': 'Mixed Media',
+    'israel': 'Door of Israel',
+    'murals': 'Mural',
+    'commissions': 'Commission'
+  };
+
+  const gallery = document.getElementById('gallery');
   const filterBtns = document.querySelectorAll('.filter-btn');
-  const artworks = document.querySelectorAll('.artwork');
+  let allArtworks = []; // {title, cat, image_url, description}
+
+  function escapeHTML(str) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  // Split a title on the last word so we can italicize it (matches the existing design)
+  function splitTitle(title) {
+    const parts = title.trim().split(/\s+/);
+    if (parts.length === 1) return { head: '', tail: parts[0] };
+    return { head: parts.slice(0, -1).join(' ') + ' ', tail: parts[parts.length - 1] };
+  }
+
+  function renderState(iconSVG, heading, message) {
+    gallery.innerHTML = `
+      <div class="gallery-state">
+        <div class="icon">${iconSVG}</div>
+        <h3>${heading}</h3>
+        <p>${message}</p>
+      </div>
+    `;
+  }
+
+  function renderGallery(items) {
+    if (!items.length) {
+      renderState(
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="56" height="56"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.5-3.5L9 20"/></svg>',
+        'No works to show just yet',
+        'New paintings are being added to this gallery soon. Please check back, or get in touch directly.'
+      );
+      return;
+    }
+
+    gallery.innerHTML = items.map((art, idx) => {
+      const { head, tail } = splitTitle(art.title);
+      const metaLabel = CATEGORY_LABELS[art.cat] || art.cat;
+      const meta = art.description
+        ? `${escapeHTML(metaLabel)} &middot; ${escapeHTML(art.description)}`
+        : escapeHTML(metaLabel);
+      const delay = Math.min(idx * 0.05, 0.4);
+      return `
+        <div class="artwork fade-in" data-cat="${escapeHTML(art.cat)}" style="animation-delay: ${delay}s">
+          <div class="artwork-img">
+            <img src="${escapeHTML(art.image_url)}" alt="${escapeHTML(art.title)}" loading="lazy">
+          </div>
+          <div class="artwork-info">
+            <div class="artwork-title">${escapeHTML(head)}<span class="it">${escapeHTML(tail)}</span></div>
+            <div class="artwork-meta">${meta}</div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function applyFilter(f) {
+    const cards = gallery.querySelectorAll('.artwork');
+    cards.forEach(a => {
+      if (f === 'all' || a.dataset.cat === f) a.classList.remove('hidden');
+      else a.classList.add('hidden');
+    });
+  }
+
+  // Wire up filter buttons (they work whether data has loaded or not)
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const f = btn.dataset.filter;
-      artworks.forEach(a => {
-        if (f === 'all' || a.dataset.cat === f) a.classList.remove('hidden');
-        else a.classList.add('hidden');
-      });
+      applyFilter(btn.dataset.filter);
     });
   });
+
+  // Parse the gviz response. It comes wrapped as: /*O_o*/google.visualization.Query.setResponse({...});
+  function parseGviz(text) {
+    const first = text.indexOf('{');
+    const last = text.lastIndexOf('}');
+    if (first === -1 || last === -1) throw new Error('Malformed gviz response');
+    return JSON.parse(text.slice(first, last + 1));
+  }
+
+  function isTruthy(val) {
+    if (val === true) return true;
+    if (val == null) return false;
+    const s = String(val).trim().toLowerCase();
+    return s === 'true' || s === 'yes' || s === 'y' || s === '1' || s === 'visible';
+  }
+
+  function extractRows(parsed) {
+    const table = parsed.table;
+    if (!table || !table.cols || !table.rows) return [];
+
+    // Build a column-name -> index map. gviz uses col.label if header row present, else col.id.
+    const colIndex = {};
+    table.cols.forEach((c, i) => {
+      const name = (c.label || c.id || '').toString().trim().toLowerCase();
+      if (name) colIndex[name] = i;
+    });
+
+    const getCell = (row, name) => {
+      const i = colIndex[name];
+      if (i == null) return null;
+      const cell = row.c[i];
+      if (!cell) return null;
+      return cell.v != null ? cell.v : (cell.f != null ? cell.f : null);
+    };
+
+    const results = [];
+    for (const row of table.rows) {
+      if (!row.c) continue;
+      const visible = getCell(row, 'visible');
+      if (!isTruthy(visible)) continue;
+
+      const rawCat = (getCell(row, 'category') || '').toString().trim().toLowerCase();
+      const cat = CATEGORY_MAP[rawCat];
+      const title = (getCell(row, 'title') || '').toString().trim();
+      const image_url = (getCell(row, 'image_url') || '').toString().trim();
+      const description = (getCell(row, 'description') || '').toString().trim();
+
+      if (!cat || !title || !image_url) continue;
+      results.push({ title, cat, image_url, description });
+    }
+    return results;
+  }
+
+  async function loadPortfolio() {
+    try {
+      const res = await fetch(SHEET_URL);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const text = await res.text();
+      const parsed = parseGviz(text);
+      allArtworks = extractRows(parsed);
+      renderGallery(allArtworks);
+
+      // Re-apply currently active filter (in case user clicked while loading)
+      const active = document.querySelector('.filter-btn.active');
+      if (active) applyFilter(active.dataset.filter);
+    } catch (err) {
+      console.error('Portfolio load failed:', err);
+      renderState(
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="56" height="56"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>',
+        'The gallery is resting',
+        'We could not reach the artwork catalog right now. Please refresh the page in a moment, or reach out by email and Tomi will share recent work directly.'
+      );
+    }
+  }
+
+  loadPortfolio();
 
   // Reveal on scroll
   const reveals = document.querySelectorAll('.reveal');
