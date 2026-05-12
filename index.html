@@ -654,6 +654,65 @@
     font-weight: 500;
   }
 
+  /* Gallery-style availability label — small, tasteful, never e-commerce */
+  .artwork-status {
+    margin-top: 0.7rem;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    line-height: 1;
+  }
+
+  .artwork-status.available {
+    color: var(--moss-dark);
+  }
+
+  .artwork-status.available .status-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--moss);
+    flex-shrink: 0;
+    align-self: center;
+    box-shadow: 0 0 0 3px rgba(74, 90, 58, 0.12);
+  }
+
+  .artwork-status.available .status-label {
+    font-family: var(--sans);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-weight: 500;
+    color: var(--moss-dark);
+  }
+
+  .artwork-status.available .status-sep {
+    color: var(--line);
+    font-size: 0.7rem;
+  }
+
+  .artwork-status.available .status-price {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+
+  .artwork-status.sold .status-label {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+  }
+
+  .artwork-status.sold {
+    opacity: 0.7;
+  }
+
   /* ============ CONTACT ============ */
   .contact {
     background: var(--moss-dark);
@@ -1422,12 +1481,39 @@
       return;
     }
 
+    const formatPrice = (n) => {
+      // Whole dollars if integer; show cents only if fractional
+      if (n % 1 === 0) return '$' + n.toLocaleString('en-US');
+      return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    };
+
     gallery.innerHTML = items.map((art) => {
       const { head, tail } = splitTitle(art.title);
       const metaLabel = CATEGORY_LABELS[art.cat] || art.cat;
       const meta = art.description
         ? `${escapeHTML(metaLabel)} &middot; ${escapeHTML(art.description)}`
         : escapeHTML(metaLabel);
+
+      // Gallery-style availability line.
+      // - for_sale TRUE + price:        "Available  ·  $450"
+      // - for_sale TRUE, no price:      "Available  ·  Inquire"
+      // - for_sale explicitly FALSE:    subtle italic "Sold"
+      // - for_sale blank/missing:       show nothing (most works are simply part of the
+      //                                  body of work, not actively listed for sale)
+      let status = '';
+      if (art.for_sale) {
+        const priceTxt = art.price != null ? formatPrice(art.price) : 'Inquire';
+        status = `
+          <div class="artwork-status available">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-label">Available</span>
+            <span class="status-sep" aria-hidden="true">&middot;</span>
+            <span class="status-price">${escapeHTML(priceTxt)}</span>
+          </div>`;
+      } else if (art.sale_explicit) {
+        status = `<div class="artwork-status sold"><span class="status-label">Sold</span></div>`;
+      }
+
       return `
         <div class="artwork" data-cat="${escapeHTML(art.cat)}">
           <div class="artwork-img">
@@ -1436,6 +1522,7 @@
           <div class="artwork-info">
             <div class="artwork-title">${escapeHTML(head)}<span class="it">${escapeHTML(tail)}</span></div>
             <div class="artwork-meta">${meta}</div>
+            ${status}
           </div>
         </div>
       `;
@@ -1550,9 +1637,21 @@
       const title = (getCell(row, 'title') || '').toString().trim();
       const image_url = (getCell(row, 'image_url') || '').toString().trim();
       const description = (getCell(row, 'description') || '').toString().trim();
+      const for_sale_raw = getCell(row, 'for_sale');
+      const for_sale = isTruthy(for_sale_raw);
+      // Distinguish "explicitly marked not for sale" from "left blank":
+      // blank cells should display no status at all on a fine-art site.
+      const sale_explicit = for_sale_raw != null && String(for_sale_raw).trim() !== '';
+      const priceRaw = getCell(row, 'price');
+      // Coerce price to a number if possible; null otherwise
+      let price = null;
+      if (priceRaw != null && priceRaw !== '') {
+        const n = typeof priceRaw === 'number' ? priceRaw : parseFloat(String(priceRaw).replace(/[^0-9.]/g, ''));
+        if (!isNaN(n) && n > 0) price = n;
+      }
 
       if (!cat || !title || !image_url) continue;
-      results.push({ title, cat, image_url, description });
+      results.push({ title, cat, image_url, description, for_sale, sale_explicit, price });
     }
     return results;
   }
