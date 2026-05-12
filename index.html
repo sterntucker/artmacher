@@ -1611,38 +1611,52 @@
     const table = parsed.table;
     if (!table || !table.cols || !table.rows) return [];
 
-    // Build a column-name -> index map. gviz uses col.label if header row present, else col.id.
+    // Normalize a column-name token: lowercase, collapse spaces / underscores / hyphens.
+    // So "For Sale", "for_sale", "for-sale", "ForSale" all become "forsale".
+    const normalize = (s) => (s || '').toString().toLowerCase().replace(/[\s_\-]+/g, '');
+
+    // Build a normalized-name -> index map.
+    // gviz uses col.label if a header row is detected; falls back to col.id (letter).
     const colIndex = {};
     table.cols.forEach((c, i) => {
-      const name = (c.label || c.id || '').toString().trim().toLowerCase();
-      if (name) colIndex[name] = i;
+      const labelKey = normalize(c.label);
+      if (labelKey) colIndex[labelKey] = i;
+      // Also keep the raw letter id as a fallback (e.g. "a", "b", "f", "g")
+      const idKey = normalize(c.id);
+      if (idKey && !(idKey in colIndex)) colIndex[idKey] = i;
     });
 
-    const getCell = (row, name) => {
-      const i = colIndex[name];
-      if (i == null) return null;
-      const cell = row.c[i];
-      if (!cell) return null;
-      return cell.v != null ? cell.v : (cell.f != null ? cell.f : null);
+    // Accept multiple possible header spellings per logical field.
+    const getCell = (row, ...candidateNames) => {
+      for (const name of candidateNames) {
+        const key = normalize(name);
+        const i = colIndex[key];
+        if (i == null) continue;
+        const cell = row.c[i];
+        if (!cell) continue;
+        if (cell.v != null) return cell.v;
+        if (cell.f != null) return cell.f;
+      }
+      return null;
     };
 
     const results = [];
     for (const row of table.rows) {
       if (!row.c) continue;
-      const visible = getCell(row, 'visible');
+      const visible = getCell(row, 'visible', 'show', 'display');
       if (!isTruthy(visible)) continue;
 
-      const rawCat = (getCell(row, 'category') || '').toString().trim().toLowerCase();
+      const rawCat = (getCell(row, 'category', 'cat', 'type') || '').toString().trim().toLowerCase();
       const cat = CATEGORY_MAP[rawCat];
-      const title = (getCell(row, 'title') || '').toString().trim();
-      const image_url = (getCell(row, 'image_url') || '').toString().trim();
-      const description = (getCell(row, 'description') || '').toString().trim();
-      const for_sale_raw = getCell(row, 'for_sale');
+      const title = (getCell(row, 'title', 'name', 'work') || '').toString().trim();
+      const image_url = (getCell(row, 'image_url', 'image', 'imageurl', 'url', 'imagelink', 'image link') || '').toString().trim();
+      const description = (getCell(row, 'description', 'desc', 'medium', 'details') || '').toString().trim();
+      const for_sale_raw = getCell(row, 'for_sale', 'forsale', 'for sale', 'available', 'available for sale', 'sale');
       const for_sale = isTruthy(for_sale_raw);
       // Distinguish "explicitly marked not for sale" from "left blank":
       // blank cells should display no status at all on a fine-art site.
       const sale_explicit = for_sale_raw != null && String(for_sale_raw).trim() !== '';
-      const priceRaw = getCell(row, 'price');
+      const priceRaw = getCell(row, 'price', 'cost', 'amount', 'priceusd', 'price usd');
       // Coerce price to a number if possible; null otherwise
       let price = null;
       if (priceRaw != null && priceRaw !== '') {
@@ -1662,7 +1676,17 @@
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const text = await res.text();
       const parsed = parseGviz(text);
+
+      // Diagnostic: log the columns gviz returns so any header-name mismatch
+      // is easy to spot in the browser console.
+      if (parsed && parsed.table && parsed.table.cols) {
+        console.info('[portfolio] sheet columns:', parsed.table.cols.map(c => ({
+          id: c.id, label: c.label, type: c.type
+        })));
+      }
+
       allArtworks = extractRows(parsed);
+      console.info(`[portfolio] loaded ${allArtworks.length} works (${allArtworks.filter(a => a.for_sale).length} available)`);
       renderGallery(allArtworks);
 
       // Re-apply currently active filter (in case user clicked while loading)
