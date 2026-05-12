@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tomi Nonenmacher-Stern · Hudson Valley Painter & Muralist</title>
+<meta name="description" content="Tomi Nonenmacher-Stern is a painter and muralist based in New Paltz, NY. Landscapes, portraits, murals, and commissioned works from the Hudson Valley.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #f4ede0;
+    --bg-warm: #ebe1cf;
+    --paper: #faf6ec;
+    --ink: #2a2620;
+    --ink-soft: #5a534a;
+    --moss: #4a5a3a;
+    --moss-dark: #364226;
+    --terra: #a8612f;
+    --terra-soft: #c98654;
+    --tan: #c9b48a;
+    --line: #c4b89e;
+    --shadow: 0 30px 60px -30px rgba(54, 66, 38, 0.25);
+
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Inter', system-ui, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    font-size: 16px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Paper grain texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.15 0 0 0 0 0.13 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  img { max-width: 100%; display: block; }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ============ HEADER ============ */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    background: rgba(244, 237, 224, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.4s ease, padding 0.4s ease;
+  }
+
+  header.scrolled {
+    border-bottom-color: var(--line);
+    padding: 0.9rem 3rem;
+  }
+
+  .nav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+
+  .logo span {
+    font-style: italic;
+    color: var(--moss);
+  }
+
+  nav ul {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  nav a {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--moss);
+    transition: width 0.4s ease;
+  }
+
+  nav a:hover { color: var(--moss-dark); }
+  nav a:hover::after { width: 100%; }
+
+  .menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .menu-btn span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--ink);
+    transition: all 0.3s ease;
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 4rem;
+  }
+
+  .hero-text { position: relative; z-index: 2; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--moss);
+    margin-bottom: 1.8rem;
+    font-weight: 500;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--moss);
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 400;
+    line-height: 0.95;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 .accent {
+    font-style: italic;
+    color: var(--moss);
+    font-weight: 500;
+  }
+
+  .hero p.lede {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin-bottom: 2.5rem;
+    max-width: 520px;
+    font-style: italic;
+  }
+
+  .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.8rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid var(--moss-dark);
+  }
+
+  .btn-primary {
+    background: var(--moss-dark);
+    color: var(--paper);
+  }
+
+  .btn-primary:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--moss-dark);
+  }
+
+  .btn-ghost:hover {
+    background: var(--moss-dark);
+    color: var(--paper);
+  }
+
+  /* Hero image collage */
+  .hero-visual {
+    position: relative;
+    height: 70vh;
+    min-height: 480px;
+  }
+
+  .hero-img {
+    position: absolute;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 6px solid var(--paper);
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.95);
+  }
+
+  .hero-img-1 {
+    width: 60%;
+    height: 70%;
+    top: 5%;
+    right: 8%;
+    transform: rotate(2deg);
+    z-index: 2;
+  }
+
+  .hero-img-2 {
+    width: 45%;
+    height: 50%;
+    bottom: 6%;
+    left: 0;
+    transform: rotate(-4deg);
+    z-index: 3;
+  }
+
+  .hero-img-3 {
+    width: 30%;
+    height: 35%;
+    top: 0;
+    left: 12%;
+    transform: rotate(-2deg);
+    z-index: 1;
+  }
+
+  .hero-img:hover { transform: rotate(0) scale(1.02); z-index: 4; }
+
+  /* Decorative ornament */
+  .ornament {
+    position: absolute;
+    bottom: 2rem;
+    left: 3rem;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .ornament::before, .ornament::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* ============ SECTIONS GENERAL ============ */
+  section {
+    padding: 7rem 3rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--moss);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--moss);
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 3rem;
+    letter-spacing: -0.015em;
+  }
+
+  .section-title .it { font-style: italic; color: var(--moss); }
+
+  /* ============ BIO ============ */
+  .bio {
+    background: var(--bg-warm);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .bio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .bio-portrait {
+    position: sticky;
+    top: 120px;
+  }
+
+  .bio-portrait-frame {
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 8px solid var(--paper);
+    aspect-ratio: 4/5;
+  }
+
+  .bio-portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.9) contrast(1.02);
+  }
+
+  .bio-caption {
+    margin-top: 1.5rem;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
+  .bio-text p {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    line-height: 1.65;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+
+  .bio-text p:first-of-type::first-letter {
+    font-family: var(--serif);
+    font-size: 4.5rem;
+    float: left;
+    line-height: 0.85;
+    padding: 0.3rem 0.8rem 0 0;
+    color: var(--moss);
+    font-weight: 500;
+  }
+
+  .bio-stats {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .stat {
+    text-align: left;
+  }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.8rem;
+    font-weight: 500;
+    color: var(--moss-dark);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  /* ============ PORTFOLIO ============ */
+  .portfolio { background: var(--bg); }
+
+  .portfolio-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+
+  .portfolio-intro {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    font-style: italic;
+    max-width: 480px;
+  }
+
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 3.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    padding: 0.55rem 1.2rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+    font-family: var(--sans);
+  }
+
+  .filter-btn:hover {
+    border-color: var(--moss);
+    color: var(--moss-dark);
+  }
+
+  .filter-btn.active {
+    background: var(--moss-dark);
+    color: var(--paper);
+    border-color: var(--moss-dark);
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .artwork {
+    position: relative;
+    overflow: hidden;
+    background: var(--paper);
+    box-shadow: 0 8px 20px -10px rgba(54, 66, 38, 0.2);
+    transition: all 0.5s ease;
+    cursor: pointer;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .artwork.hidden {
+    display: none;
+  }
+
+  .artwork-img {
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: var(--bg-warm);
+  }
+
+  .artwork-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+    filter: saturate(0.95);
+  }
+
+  .artwork:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .artwork:hover .artwork-img img { transform: scale(1.05); }
+
+  .artwork-info {
+    padding: 1.4rem 1.5rem 1.6rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .artwork-title {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.005em;
+  }
+
+  .artwork-title .it { font-style: italic; }
+
+  .artwork-meta {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--moss);
+    font-weight: 500;
+  }
+
+  /* ============ CONTACT ============ */
+  .contact {
+    background: var(--moss-dark);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 0.9 0 0 0 0.1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .contact .section-label { color: var(--tan); }
+  .contact .section-label::before { background: var(--tan); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact h2 {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--paper);
+    margin-bottom: 2rem;
+    letter-spacing: -0.015em;
+  }
+
+  .contact h2 .it { font-style: italic; color: var(--tan); }
+
+  .contact-text {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: rgba(250, 246, 236, 0.85);
+    margin-bottom: 2.5rem;
+    font-style: italic;
+  }
+
+  .contact-card {
+    background: var(--paper);
+    color: var(--ink);
+    padding: 3rem;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.4);
+    position: relative;
+  }
+
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    border: 1px solid var(--line);
+    pointer-events: none;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .contact-row:last-child { border-bottom: none; }
+
+  .contact-row-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--moss-dark);
+    flex-shrink: 0;
+  }
+
+  .contact-row-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ink-soft);
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+  }
+
+  .contact-row-value {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .contact-row-value a:hover { color: var(--moss); }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 4rem 3rem 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(244, 237, 224, 0.15);
+  }
+
+  .footer-brand {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    letter-spacing: 0.01em;
+  }
+
+  .footer-brand .it { font-style: italic; color: var(--tan); }
+
+  .footer-tagline {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: rgba(244, 237, 224, 0.7);
+    line-height: 1.5;
+    max-width: 320px;
+  }
+
+  .footer-col h4 {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--tan);
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+  }
+
+  .footer-col a {
+    display: block;
+    font-size: 0.95rem;
+    color: rgba(244, 237, 224, 0.75);
+    margin-bottom: 0.6rem;
+    transition: color 0.3s ease;
+  }
+
+  .footer-col a:hover { color: var(--tan); }
+
+  .socials {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .socials a {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(244, 237, 224, 0.2);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    margin: 0;
+  }
+
+  .socials a:hover {
+    background: var(--tan);
+    border-color: var(--tan);
+    color: var(--ink);
+    transform: translateY(-2px);
+  }
+
+  .socials svg { width: 16px; height: 16px; }
+
+  .copyright {
+    max-width: 1400px;
+    margin: 2rem auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: rgba(244, 237, 224, 0.5);
+    letter-spacing: 0.05em;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .copyright .made {
+    font-family: var(--serif);
+    font-style: italic;
+    color: rgba(244, 237, 224, 0.6);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 968px) {
+    header { padding: 1rem 1.5rem; }
+    header.scrolled { padding: 0.8rem 1.5rem; }
+
+    .menu-btn { display: flex; }
+
+    nav ul {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 75%;
+      max-width: 320px;
+      height: 100vh;
+      background: var(--paper);
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 3rem;
+      gap: 1.8rem;
+      transition: right 0.4s ease;
+      box-shadow: -20px 0 40px rgba(0,0,0,0.1);
+    }
+
+    nav ul.open { right: 0; }
+
+    nav a { font-size: 0.9rem; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 7rem 1.5rem 3rem;
+      gap: 3rem;
+      min-height: auto;
+    }
+
+    .hero-visual {
+      height: 60vh;
+      min-height: 400px;
+      order: -1;
+    }
+
+    .ornament { display: none; }
+
+    section { padding: 5rem 1.5rem; }
+
+    .bio-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .bio-portrait {
+      position: relative;
+      top: 0;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .bio-stats {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-num { font-size: 2rem; }
+
+    .portfolio-header {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .gallery {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .contact-card { padding: 2rem; }
+
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .copyright {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .gallery {
+      grid-template-columns: 1fr;
+    }
+
+    .bio-stats {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat { text-align: center; }
+
+    .hero h1 { font-size: 3rem; }
+
+    .btn-group { flex-direction: column; align-items: stretch; }
+    .btn { justify-content: center; }
+  }
+
+  /* ============ ANIMATIONS ============ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hero-text > * { animation: fadeUp 0.9s ease backwards; }
+  .hero-text > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-text > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero-text > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero-text > *:nth-child(4) { animation-delay: 0.55s; }
+
+  .hero-img { animation: fadeUp 1s ease backwards; }
+  .hero-img-1 { animation-delay: 0.3s; }
+  .hero-img-2 { animation-delay: 0.5s; }
+  .hero-img-3 { animation-delay: 0.7s; }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="nav-inner">
+    <a href="#home" class="logo">Tomi <span>Nonenmacher-Stern</span></a>
+    <nav>
+      <ul id="navList">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#bio" class="nav-link">Bio</a></li>
+        <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Hudson Valley Painter &amp; Muralist</div>
+    <h1>Painting the <span class="accent">light</span><br>of the Shawangunks.</h1>
+    <p class="lede">Landscapes, portraits, and murals from the ridges, rivers, and quiet places of New Paltz, New York &mdash; rendered in oil, acrylic, and mixed media.</p>
+    <div class="btn-group">
+      <a href="#portfolio" class="btn btn-primary">View the Work</a>
+      <a href="#contact" class="btn btn-ghost">Commission a Piece</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-img hero-img-1">
+      <img src="https://picsum.photos/seed/hero1/800/700" alt="Featured landscape painting">
+    </div>
+    <div class="hero-img hero-img-2">
+      <img src="https://picsum.photos/seed/hero2/600/600" alt="Featured portrait">
+    </div>
+    <div class="hero-img hero-img-3">
+      <img src="https://picsum.photos/seed/hero3/400/400" alt="Featured detail">
+    </div>
+  </div>
+
+  <div class="ornament">Est. New Paltz &middot; Hudson Valley, NY</div>
+</section>
+
+<!-- ============ BIO ============ -->
+<section class="bio" id="bio">
+  <div class="container">
+    <div class="bio-grid">
+      <div class="bio-portrait reveal">
+        <div class="bio-portrait-frame">
+          <img src="https://picsum.photos/seed/portrait/600/750" alt="Tomi Nonenmacher-Stern in her studio">
+        </div>
+        <p class="bio-caption">&mdash; In the studio, New Paltz, NY</p>
+      </div>
+
+      <div class="bio-text reveal">
+        <div class="section-label">About the Artist</div>
+        <h2 class="section-title">A life lived <span class="it">in color.</span></h2>
+
+        <p>Tomi Nonenmacher-Stern is a painter and muralist whose work has been shaped by more than four decades of looking closely at the Hudson Valley &mdash; its ridgelines, its rivers, the way late afternoon light falls across a stone wall. A graduate of SUNY New Paltz, she has spent her career rooted in the same landscape that fills her canvases.</p>
+
+        <p>For over thirty years she taught art in the public schools, mentoring generations of young artists and earning multiple awards from the New York State Art Teachers Association (NYSATA) for her contributions to arts education. Her own practice deepened alongside her teaching &mdash; oils, acrylics, and mixed media works that move easily between intimate portraiture, atmospheric landscape, and large-scale public murals.</p>
+
+        <p>Today she is the official artist for the Survival of the Shawangunks Triathlon, an honor that brings together her two great loves: the mountains she grew up beside, and the discipline of putting brush to canvas. She accepts private commissions and continues to paint, daily, from her studio in New Paltz.</p>
+
+        <div class="bio-stats">
+          <div class="stat">
+            <div class="stat-num">30+</div>
+            <div class="stat-label">Years Teaching</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">NYSATA</div>
+            <div class="stat-label">Award Recipient</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">SOS</div>
+            <div class="stat-label">Official Artist</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORTFOLIO ============ -->
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <div class="portfolio-header reveal">
+      <div>
+        <div class="section-label">Selected Works</div>
+        <h2 class="section-title">The <span class="it">portfolio.</span></h2>
+      </div>
+      <p class="portfolio-intro">A working archive of recent paintings, murals, and commissioned pieces &mdash; spanning landscape, figure, and the in-between. Filter by category below.</p>
+    </div>
+
+    <div class="filter-bar reveal">
+      <button class="filter-btn active" data-filter="all">All Works</button>
+      <button class="filter-btn" data-filter="landscapes">Landscapes</button>
+      <button class="filter-btn" data-filter="portraits">Portraits</button>
+      <button class="filter-btn" data-filter="mixed">Mixed Media</button>
+      <button class="filter-btn" data-filter="israel">Door of Israel</button>
+      <button class="filter-btn" data-filter="murals">Murals</button>
+      <button class="filter-btn" data-filter="commissions">Commissions</button>
+    </div>
+
+    <div class="gallery" id="gallery">
+      <!-- LANDSCAPES -->
+      <div class="artwork" data-cat="landscapes">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/land1/600/750" alt="Shawangunk Ridge at Dusk"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Shawangunk Ridge <span class="it">at Dusk</span></div>
+          <div class="artwork-meta">Landscape · Oil on canvas</div>
+        </div>
+      </div>
+      <div class="artwork" data-cat="landscapes">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/land2/600/750" alt="Wallkill River in October"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Wallkill River, <span class="it">October</span></div>
+          <div class="artwork-meta">Landscape · Oil on canvas</div>
+        </div>
+      </div>
+      <div class="artwork" data-cat="landscapes">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/land3/600/750" alt="Minnewaska Morning"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Minnewaska <span class="it">Morning</span></div>
+          <div class="artwork-meta">Landscape · Acrylic</div>
+        </div>
+      </div>
+      <div class="artwork" data-cat="landscapes">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/land4/600/750" alt="Field in High Summer"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Field in <span class="it">High Summer</span></div>
+          <div class="artwork-meta">Landscape · Oil on linen</div>
+        </div>
+      </div>
+
+      <!-- PORTRAITS -->
+      <div class="artwork" data-cat="portraits">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/port1/600/750" alt="Margaret, in Profile"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Margaret, <span class="it">in Profile</span></div>
+          <div class="artwork-meta">Portrait · Oil on panel</div>
+        </div>
+      </div>
+      <div class="artwork" data-cat="portraits">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/port2/600/750" alt="The Reader"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">The <span class="it">Reader</span></div>
+          <div class="artwork-meta">Portrait · Oil on canvas</div>
+        </div>
+      </div>
+      <div class="artwork" data-cat="portraits">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/port3/600/750" alt="Self, with Studio Window"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Self, with <span class="it">Studio Window</span></div>
+          <div class="artwork-meta">Portrait · Oil on linen</div>
+        </div>
+      </div>
+
+      <!-- MIXED MEDIA -->
+      <div class="artwork" data-cat="mixed">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/mix1/600/750" alt="Layered Garden"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Layered <span class="it">Garden</span></div>
+          <div class="artwork-meta">Mixed Media · Collage &amp; acrylic</div>
+        </div>
+      </div>
+      <div class="artwork" data-cat="mixed">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/mix2/600/750" alt="Found Hymn"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Found <span class="it">Hymn</span></div>
+          <div class="artwork-meta">Mixed Media · Paper, ink, wax</div>
+        </div>
+      </div>
+      <div class="artwork" data-cat="mixed">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/mix3/600/750" alt="Pressed and Painted"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Pressed and <span class="it">Painted</span></div>
+          <div class="artwork-meta">Mixed Media · Botanical &amp; oil</div>
+        </div>
+      </div>
+
+      <!-- DOOR OF ISRAEL -->
+      <div class="artwork" data-cat="israel">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/door1/600/750" alt="Door of Israel I"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Door of Israel <span class="it">I</span></div>
+          <div class="artwork-meta">Series · Oil on panel</div>
+        </div>
+      </div>
+      <div class="artwork" data-cat="israel">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/door2/600/750" alt="Door of Israel II"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Door of Israel <span class="it">II</span></div>
+          <div class="artwork-meta">Series · Oil on panel</div>
+        </div>
+      </div>
+      <div class="artwork" data-cat="israel">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/door3/600/750" alt="Door of Israel III"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Door of Israel <span class="it">III</span></div>
+          <div class="artwork-meta">Series · Oil on panel</div>
+        </div>
+      </div>
+
+      <!-- MURALS -->
+      <div class="artwork" data-cat="murals">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/mur1/600/750" alt="Main Street Mural"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Main Street <span class="it">Mural</span></div>
+          <div class="artwork-meta">Mural · Exterior, New Paltz</div>
+        </div>
+      </div>
+      <div class="artwork" data-cat="murals">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/mur2/600/750" alt="Schoolhouse Wall"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Schoolhouse <span class="it">Wall</span></div>
+          <div class="artwork-meta">Mural · Interior commission</div>
+        </div>
+      </div>
+      <div class="artwork" data-cat="murals">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/mur3/600/750" alt="Community Garden Mural"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Community <span class="it">Garden</span></div>
+          <div class="artwork-meta">Mural · Public artwork</div>
+        </div>
+      </div>
+
+      <!-- COMMISSIONS -->
+      <div class="artwork" data-cat="commissions">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/com1/600/750" alt="The Family Home"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">The Family <span class="it">Home</span></div>
+          <div class="artwork-meta">Commission · Oil on canvas</div>
+        </div>
+      </div>
+      <div class="artwork" data-cat="commissions">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/com2/600/750" alt="SOS Triathlon Commemorative"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">SOS Triathlon, <span class="it">Commemorative</span></div>
+          <div class="artwork-meta">Commission · Acrylic</div>
+        </div>
+      </div>
+      <div class="artwork" data-cat="commissions">
+        <div class="artwork-img"><img src="https://picsum.photos/seed/com3/600/750" alt="Wedding Portrait"></div>
+        <div class="artwork-info">
+          <div class="artwork-title">Wedding <span class="it">Portrait</span></div>
+          <div class="artwork-meta">Commission · Oil on linen</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="section-label">Get in Touch</div>
+        <h2>Let's make <span class="it">something.</span></h2>
+        <p class="contact-text">Whether you're imagining a portrait, a landscape from a meaningful place, or a mural for a wall that needs telling &mdash; I'd love to hear from you. Commissions are open year-round.</p>
+        <a href="mailto:tomistern@hotmail.com" class="btn btn-ghost" style="border-color: var(--tan); color: var(--tan);">Start a Conversation</a>
+      </div>
+
+      <div class="contact-card reveal">
+        <div class="contact-row">
+          <div class="contact-row-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+          </div>
+          <div>
+            <div class="contact-row-label">Email</div>
+            <div class="contact-row-value"><a href="mailto:tomistern@hotmail.com">tomistern@hotmail.com</a></div>
+          </div>
+        </div>
+
+        <div class="contact-row">
+          <div class="contact-row-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="contact-row-label">Studio</div>
+            <div class="contact-row-value">New Paltz, New York</div>
+          </div>
+        </div>
+
+        <div class="contact-row">
+          <div class="contact-row-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+          </div>
+          <div>
+            <div class="contact-row-label">Available For</div>
+            <div class="contact-row-value">Commissions &middot; Murals &middot; Portraits</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Tomi <span class="it">Nonenmacher-Stern</span></div>
+      <p class="footer-tagline">Painter and muralist of the Hudson Valley, based in New Paltz, New York.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <a href="#home">Home</a>
+      <a href="#bio">Bio</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="mailto:tomistern@hotmail.com">tomistern@hotmail.com</a>
+      <div class="socials" style="margin-top: 1.2rem;">
+        <a href="https://www.instagram.com/tomistern" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.facebook.com/tomistern" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="copyright">
+    <div>&copy; <span id="year"></span> Tomi Nonenmacher-Stern. All works and images &copy; the artist.</div>
+    <div class="made">Painted in New Paltz, NY</div>
+  </div>
+</footer>
+
+<script>
+  // Sticky header on scroll
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 30) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  });
+
+  // Mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const navList = document.getElementById('navList');
+  menuBtn.addEventListener('click', () => navList.classList.toggle('open'));
+  document.querySelectorAll('.nav-link').forEach(a => {
+    a.addEventListener('click', () => navList.classList.remove('open'));
+  });
+
+  // Portfolio filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const artworks = document.querySelectorAll('.artwork');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      artworks.forEach(a => {
+        if (f === 'all' || a.dataset.cat === f) a.classList.remove('hidden');
+        else a.classList.add('hidden');
+      });
+    });
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => obs.observe(r));
+
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
